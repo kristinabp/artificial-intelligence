@@ -1,22 +1,8 @@
 #include "State.h"
 
-State::State(int n)
+State::State(int n, int index, int curPathCost)
 {
-	this->sizeDesk = sqrt(n + 1);
-	for (int i = 0; i < this->sizeDesk; i++)
-	{
-		this->state.push_back(std::vector<int>());
-		for (int j = 0; j < this->sizeDesk; j++)
-		{
-			this->state[i].push_back(i*this->sizeDesk + j + 1);
-		}
-	}
-	this->state[this->sizeDesk - 1][this->sizeDesk - 1] = 0;
-	this->zeroPosition = { this->sizeDesk - 1 , this->sizeDesk - 1 };
-}
-
-State::State(int n, int index)
-{
+	this->curPathCost = curPathCost;
 	this->sizeDesk = sqrt(n + 1);
 	if (index != -1)
 		this->zeroPosition = { int((index - 1) / this->sizeDesk), (index - 1) % this->sizeDesk }; // sets (x, y) position from row-major ordering
@@ -46,7 +32,36 @@ State::State(int n, int index)
 		}
 		else break;
 	}
+
+	for (int i = 0; i < this->sizeDesk; i++)
+	{
+		this->goalState.push_back(std::vector<int>());
+		for (int j = 0; j < this->sizeDesk; j++)
+		{
+			this->goalState[i].push_back(i * this->sizeDesk + j + 1);
+		}
+	}
+	this->goalState[this->sizeDesk - 1][this->sizeDesk - 1] = 0;
 	
+}
+
+State::State(std::vector<std::vector<int>> state, std::pair<int, int> zeroPosition, int curPathCost)
+{
+	this->state = state;
+	this->curPathCost = curPathCost;
+	this->zeroPosition = zeroPosition;
+	this->sizeDesk = state.size();
+
+	for (int i = 0; i < this->sizeDesk; i++)
+	{
+		this->goalState.push_back(std::vector<int>());
+		for (int j = 0; j < this->sizeDesk; j++)
+		{
+			this->goalState[i].push_back(i * this->sizeDesk + j + 1);
+		}
+	}
+	this->goalState[this->sizeDesk - 1][this->sizeDesk - 1] = 0;
+
 }
 
 State& State::operator=(const State& other)
@@ -89,4 +104,81 @@ void State::printState() const
 		}
 		std::cout << std::endl;
 	}
+}
+
+int State::f() const
+{
+	return this->curPathCost + manhhatan();
+}
+
+std::vector<State*> State::generateChildren()
+{
+	std::vector<State*> children;
+	if (!isExternalPoint(this->zeroPosition.first - 1, this->zeroPosition.second))
+	{
+		std::vector<std::vector<int>> newState = this->state;
+		swap(newState, this->zeroPosition.first, this->zeroPosition.second, this->zeroPosition.first - 1, this->zeroPosition.second);
+		children.push_back(new State(newState, { this->zeroPosition.first - 1, this->zeroPosition.second }, this->curPathCost + 1));
+		
+	}
+
+	if (!isExternalPoint(this->zeroPosition.first + 1, this->zeroPosition.second))
+	{
+		std::vector<std::vector<int>> newState = this->state;
+		swap(newState, this->zeroPosition.first, this->zeroPosition.second, this->zeroPosition.first + 1, this->zeroPosition.second);
+		children.push_back(new State(newState, { this->zeroPosition.first + 1, this->zeroPosition.second }, this->curPathCost + 1));
+	}
+
+	if (!isExternalPoint(this->zeroPosition.first, this->zeroPosition.second - 1))
+	{
+		std::vector<std::vector<int>> newState = this->state;
+		swap(newState, this->zeroPosition.first, this->zeroPosition.second, this->zeroPosition.first, this->zeroPosition.second - 1);
+		children.push_back(new State(newState, { this->zeroPosition.first - 1, this->zeroPosition.second }, this->curPathCost + 1));
+	}
+
+	if (!isExternalPoint(this->zeroPosition.first, this->zeroPosition.second + 1))
+	{
+		std::vector<std::vector<int>> newState = this->state;
+		swap(newState, this->zeroPosition.first, this->zeroPosition.second, this->zeroPosition.first, this->zeroPosition.second + 1);
+		children.push_back(new State(newState, { this->zeroPosition.first - 1, this->zeroPosition.second }, this->curPathCost + 1));
+	}
+
+	return children;
+}
+
+int State::manhhatan() const
+{
+	int manhhatan = 0;
+	for (int i = 0; i < this->sizeDesk; i++)
+	{
+		for (int j = 0; j < this->sizeDesk; j++)
+		{
+			if (this->state[i][j] != 0)
+			{
+				for (int k = 0; k < this->sizeDesk; k++)
+				{
+					for (int l = 0; l < this->sizeDesk; l++)
+					{
+						if (this->state[i][j] == goalState[k][l])
+							manhhatan += abs(i - k) + abs(j - l);
+					}
+				}
+			}
+		}
+	}
+
+	return manhhatan;
+}
+
+bool State::isExternalPoint(int x, int y) const
+{
+	return (x < 0 || x > this->sizeDesk ||
+		y < 0 || y > this->sizeDesk);
+}
+
+void State::swap(std::vector<std::vector<int>>& state, int x1, int y1, int x2, int y2)
+{
+	int temp = state[x2][y2];
+	state[x2][y2] = state[x1][y1];
+	state[x1][y1] = temp;
 }

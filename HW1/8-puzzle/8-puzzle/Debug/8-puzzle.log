@@ -1,4 +1,4 @@
 ﻿  State.cpp
-C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW1\8-puzzle\8-puzzle\State.cpp(5,23): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW1\8-puzzle\8-puzzle\State.cpp(20,23): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW1\8-puzzle\8-puzzle\State.cpp(6,23): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW1\8-puzzle\8-puzzle\State.cpp(146,20): warning C4018: '<': signed/unsigned mismatch
   8-puzzle.vcxproj -> C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW1\8-puzzle\Debug\8-puzzle.exe
