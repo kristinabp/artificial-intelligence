@@ -1,14 +1,10 @@
 #include<iostream>
-#include "State.h"
-#include<map>
+#include "PuzzleSolver.h"
+
 
 int main() {
-	
-	State s(8, 1, 0);
-	s.printState();
-	s.generateChildren();
-	
-
-
+	PuzzleSolver puzzle;
+	/*State s(8, -1, 0);
+	s.generateChildren();*/
 	return system("pause");
 }
