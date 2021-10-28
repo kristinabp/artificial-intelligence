@@ -12,6 +12,8 @@ private:
 	std::vector<std::vector<int>> state;
 	std::vector<std::vector<int>> goalState;
 	std::pair<int, int> zeroPosition;
+	std::pair<int, int> goalZeroPosition;
+	std::string direction;
 	int curPathCost;
 	int sizeDesk;
 	State* parent;
@@ -19,11 +21,12 @@ private:
 	int manhhatan()const;
 	bool isExternalPoint(int x, int y)const;
 	void swap(std::vector<std::vector<int>>& state, int x1, int y1, int x2, int y2);
+	int countInversions();
 
 
 public:
 	State(int n, int index, int curPathCost, State* parent);
-	State(std::vector<std::vector<int>> state, std::pair<int, int> zeroPosition, int curPathCost, State* parent);
+	State(std::vector<std::vector<int>> state, std::pair<int, int> zeroPosition, int curPathCost, State* parent, std::string direction);
 	State& operator=(const State& other);
 	bool operator==(const State& other) const;
 	
@@ -33,6 +36,9 @@ public:
 	int f() const;
 	std::vector<State*> generateChildren();
 	bool isGoalState()const;
-	State* getParent()const;
+	std::pair<int, int> getGoalZeroPosition()const;
+	int getCurPathCost()const;
+	std::string getDirection()const;
+	bool isSolvable();
 };
 #endif // !STATE_H
