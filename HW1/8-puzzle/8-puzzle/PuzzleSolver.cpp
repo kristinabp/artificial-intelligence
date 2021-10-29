@@ -12,8 +12,8 @@ int PuzzleSolver::func(int threshold, State s, std::stack<std::string>& path)
 		return -1;
 	}
 
-	int minThreshold = std::numeric_limits<int>::max();;
 	std::vector<State*> adj = s.generateChildren();
+	int minThreshold = std::numeric_limits<int>::max();;
 	for (int i = 0; i < adj.size(); i++)
 	{
 		int temp = func(threshold, *adj[i], path);
@@ -47,7 +47,7 @@ bool PuzzleSolver::func2(State start)
 		}
 		threshold = curThreshold;
 	}
-	auto end = std::chrono::steady_clock::now();
+	auto endd = std::chrono::steady_clock::now();
 	int size = path.size();
 	for (int i = 0; i < size; i++)
 	{
@@ -55,7 +55,7 @@ bool PuzzleSolver::func2(State start)
 		path.pop();
 	}
 
-	std::cout << std::chrono::duration <double, std::milli>(end-startt).count() << " ms" << std::endl;
+	std::cout << std::chrono::duration <double, std::milli>(endd-startt).count() << " ms" << std::endl;
 	return goalStateFound;
 }
 
@@ -74,6 +74,7 @@ void PuzzleSolver::solve(State start)
 {
 	if (start.isSolvable())
 	{
+		std::cout << "This puzzle is solvable.\n";
 		func2(start);
 	}
 	else

@@ -217,7 +217,7 @@ bool State::isSolvable()
 	if (this->state == this->goalState)
 		return false;
 	if (this->sizeDesk % 2 == 0)
-		return (inversions + this->zeroPosition.first) % 2 == 1;
+		return (inversions + 1 + this->zeroPosition.first) % 2 == 1;
 	else
 		return inversions % 2 == 0;
 }
