@@ -17,13 +17,17 @@ private:
 	int size;
 
 	int getIndexRight(int row, int col) const;
+	void initQueenMinMax(int col);
+	void updateConflicts(int col, int row);
 
 public:
 	State(int n);
 
-	bool hasConflicts()const;
 	void printState()const;
 	int getColWithQueenWithMaxConf();
 	int getRowWithMinConf(int col);
+	void moveQueen();
+	int getSize()const;
+	bool hasConflicts()const;
 };
 #endif // !STATE_H

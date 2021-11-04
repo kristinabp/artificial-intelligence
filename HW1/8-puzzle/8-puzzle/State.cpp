@@ -68,7 +68,6 @@ State::State(std::vector<std::vector<int>> state, std::pair<int, int> zeroPositi
 				this->goalState[i].push_back(counter++);
 		}
 	}
-
 }
 
 State& State::operator=(const State& other)
@@ -113,6 +112,18 @@ void State::printState() const
 	}
 }
 
+void State::printGoalState() const
+{
+	for (int i = 0; i < this->sizeDesk; i++)
+	{
+		for (int j = 0; j < this->sizeDesk; j++)
+		{
+			std::cout << this->goalState[i][j] << " ";
+		}
+		std::cout << std::endl;
+	}
+}
+
 int State::f() const
 {
 	return this->curPathCost + manhhatan();
@@ -121,11 +132,11 @@ int State::f() const
 std::vector<State*> State::generateChildren()
 {
 	std::vector<State*> children;
-	if (!isExternalPoint(this->zeroPosition.first - 1, this->zeroPosition.second))
+	if (!isExternalPoint(this->zeroPosition.first - 1, this->zeroPosition.second) )
 	{
 		std::vector<std::vector<int>> newState = this->state;
 		swap(newState, this->zeroPosition.first, this->zeroPosition.second, this->zeroPosition.first - 1, this->zeroPosition.second);
-		children.push_back(new State(newState, { this->zeroPosition.first - 1, this->zeroPosition.second }, this->curPathCost + 1, this, "up"));
+		children.push_back(new State(newState, { this->zeroPosition.first - 1, this->zeroPosition.second }, this->curPathCost + 1, this, "down"));
 		
 	}
 
@@ -133,7 +144,7 @@ std::vector<State*> State::generateChildren()
 	{
 		std::vector<std::vector<int>> newState = this->state;
 		swap(newState, this->zeroPosition.first, this->zeroPosition.second, this->zeroPosition.first + 1, this->zeroPosition.second);
-		children.push_back(new State(newState, { this->zeroPosition.first + 1, this->zeroPosition.second }, this->curPathCost + 1, this, "down"));
+		children.push_back(new State(newState, { this->zeroPosition.first + 1, this->zeroPosition.second }, this->curPathCost + 1, this, "up"));
 	}
 
 	if (!isExternalPoint(this->zeroPosition.first, this->zeroPosition.second - 1))
@@ -217,11 +228,15 @@ bool State::isSolvable()
 	if (this->state == this->goalState)
 		return false;
 	if (this->sizeDesk % 2 == 0)
-		return (inversions + 1 + this->zeroPosition.first) % 2 == 1;
+		return (inversions + this->zeroPosition.first) % 2 == 1;
 	else
 		return inversions % 2 == 0;
 }
-	
+
+std::vector<std::vector<int>> State::getState() const
+{
+	return this->state;
+}
 
 int State::countInversions()
 {
@@ -230,15 +245,18 @@ int State::countInversions()
 	{
 		for (int j = 0; j < this->sizeDesk; j++)
 		{
-			rowMajoringOrder.push_back(this->state[i][j]);
+			if (this->state[i][j] != 0)
+				rowMajoringOrder.push_back(this->state[i][j]);
 		}
 	}
 
 	int inversions = 0;
 	for (int i = 0; i < rowMajoringOrder.size(); i++)
+	{
 		for (int j = i + 1; j < rowMajoringOrder.size(); j++)
 			if (rowMajoringOrder[i] > rowMajoringOrder[j])
 				inversions++;
+	}
 
 	return inversions;
 }

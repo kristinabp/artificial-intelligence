@@ -23,7 +23,6 @@ private:
 	void swap(std::vector<std::vector<int>>& state, int x1, int y1, int x2, int y2);
 	int countInversions();
 
-
 public:
 	State(int n, int index, int curPathCost, State* parent);
 	State(std::vector<std::vector<int>> state, std::pair<int, int> zeroPosition, int curPathCost, State* parent, std::string direction);
@@ -33,6 +32,7 @@ public:
 	friend bool operator>(const State& s1, const State& s2);
 
 	void printState()const;
+	void printGoalState()const;
 	int f() const;
 	std::vector<State*> generateChildren();
 	bool isGoalState()const;
@@ -40,5 +40,6 @@ public:
 	int getCurPathCost()const;
 	std::string getDirection()const;
 	bool isSolvable();
+	std::vector<std::vector<int>> getState()const;
 };
 #endif // !STATE_H

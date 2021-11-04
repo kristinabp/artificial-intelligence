@@ -31,21 +31,13 @@ State::State(int n): size(n)
 
 	for (int i = 0; i < this->size; i++)
 		this->numRowConf[i] = ((numOfQueensPerRow[i] - 1) + 1) * (numOfQueensPerRow[i] - 1) / 2; 
+
 	for (int i = 0; i < this->size * 2 - 1; i++)
 	{
 		this->rightDiagConf[i] = ((numOfQueensPerRightDiag[i] - 1) + 1) * (numOfQueensPerRightDiag[i] - 1) / 2;
 		this->leftDiagConf[i] = ((numOfQueensPerLeftDiag[i] - 1) + 1) * (numOfQueensPerLeftDiag[i] - 1) / 2;
 	}
 	
-}
-
-bool State::hasConflicts() const
-{
-	for (int i = 0; i < this->size; i++)
-	{
-
-	}
-	return true;
 }
 
 int State::getColWithQueenWithMaxConf()
@@ -56,20 +48,61 @@ int State::getColWithQueenWithMaxConf()
 
 	for (int i = 0; i < this->size; i++)
 	{
-		conflicts = this->numRowConf[this->queens[i].getRow()] + this->rightDiagConf[i + this->queens[i].getRow()] + this->leftDiagConf[i + this->size - this->queens[i].getRow() - 1];
-		if (conflicts >= maxConflicts)
+		int row = this->queens[i].getRow();
+		conflicts = this->numRowConf[row] + this->rightDiagConf[getIndexRight(row, i)] + this->leftDiagConf[i + row];
+		if (conflicts > maxConflicts)
 		{
 			colWithQueenWithMaxConf.push(i);
 			maxConflicts = conflicts;
 		}
+		else if(conflicts == maxConflicts && conflicts != 0)
+		{
+			colWithQueenWithMaxConf.push(i);
+		}
 	}
 	
+	// to do max col
 	return 1;
 }
 
 int State::getRowWithMinConf(int col)
 {
+	int conflicts;
+	int minConflicts = this->size + 1;
+	std::priority_queue<int> rowWithMinConf;
+
+	for (int i = 0; i < this->size; i++)
+	{
+		conflicts = this->numRowConf[this->queens[i].getRow()] + this->rightDiagConf[i + this->queens[i].getRow()] + this->leftDiagConf[i + this->queens[i].getRow()];
+		
+
+	}
+
 	return 0;
+}
+
+void State::moveQueen()
+{
+}
+
+int State::getSize() const
+{
+	return this->size;
+}
+
+bool State::hasConflicts() const
+{
+	int conflicts;
+	int row, col;
+	for (int i = 0; i < this->size; i++)
+	{
+		row = this->queens[i].getRow();
+		col = this->queens[i].getCol();
+		conflicts = this->numRowConf[row] + this->rightDiagConf[col + row] + this->leftDiagConf[col + row];
+		if (conflicts != 0)
+			return true;
+	}
+	return false;
 }
 
 void State::printState() const

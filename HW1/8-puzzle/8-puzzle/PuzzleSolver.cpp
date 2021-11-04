@@ -1,9 +1,10 @@
 #include "PuzzleSolver.h"
 
-int PuzzleSolver::func(int threshold, State s, std::stack<std::string>& path)
+int PuzzleSolver::func(int threshold, State s, std::stack<std::string>& path, std::vector<std::vector<std::vector<int>>>& visitedStates)
 {
-	if (s.f() > threshold)
-		return s.f();
+	int f = s.f();
+	if (f > threshold)
+		return f;
 
 	if (s.isGoalState())
 	{
@@ -13,17 +14,22 @@ int PuzzleSolver::func(int threshold, State s, std::stack<std::string>& path)
 	}
 
 	std::vector<State*> adj = s.generateChildren();
-	int minThreshold = std::numeric_limits<int>::max();;
+	int minThreshold = std::numeric_limits<int>::max();
 	for (int i = 0; i < adj.size(); i++)
 	{
-		int temp = func(threshold, *adj[i], path);
-		if (temp == -1)
+		if (!isVisited(adj[i]->getState(), visitedStates))
 		{
-			path.push(s.getDirection());
-			return -1;
+			visitedStates.push_back(adj[i]->getState());
+			int temp = func(threshold, *adj[i], path, visitedStates);
+			if (temp == -1)
+			{
+				path.push(s.getDirection());
+				return -1;
+			}
+			if (temp < minThreshold)
+				minThreshold = temp;
+			visitedStates.pop_back();
 		}
-		if (temp < minThreshold)
-			minThreshold = temp;
 	}
 
 	return minThreshold;
@@ -32,6 +38,8 @@ int PuzzleSolver::func(int threshold, State s, std::stack<std::string>& path)
 bool PuzzleSolver::func2(State start)
 {
 	std::stack<std::string> path;
+	std::vector<std::vector<std::vector<int>>> visitedStates;
+	visitedStates.push_back(start.getState());
 	int threshold = start.f();
 	bool goalStateFound = false;
 	int curThreshold;
@@ -39,7 +47,7 @@ bool PuzzleSolver::func2(State start)
 	auto startt = std::chrono::steady_clock::now();
 	while (!goalStateFound)
 	{
-		curThreshold = func(threshold, start, path);
+		curThreshold = func(threshold, start, path, visitedStates);
 		if (curThreshold == -1)
 		{
 			goalStateFound = true;
@@ -55,8 +63,19 @@ bool PuzzleSolver::func2(State start)
 		path.pop();
 	}
 
-	std::cout << std::chrono::duration <double, std::milli>(endd-startt).count() << " ms" << std::endl;
+	std::cout << std::chrono::duration <double, std::milli>(endd-startt).count()/1000 << " sec" << std::endl;
 	return goalStateFound;
+
+}
+
+bool PuzzleSolver::isVisited(std::vector<std::vector<int>> state, std::vector<std::vector<std::vector<int>>> visitedStates)
+{
+	for (int i = 0; i < visitedStates.size(); i++)
+	{
+		if (state == visitedStates[i])
+			return true;
+	}
+	return false;
 }
 
 
