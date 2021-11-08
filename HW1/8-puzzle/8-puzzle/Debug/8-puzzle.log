@@ -1,4 +1,10 @@
 ﻿  PuzzleSolver.cpp
 C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW1\8-puzzle\8-puzzle\PuzzleSolver.cpp(18,20): warning C4018: '<': signed/unsigned mismatch
 C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW1\8-puzzle\8-puzzle\PuzzleSolver.cpp(73,20): warning C4018: '<': signed/unsigned mismatch
+  State.cpp
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW1\8-puzzle\8-puzzle\State.cpp(7,23): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW1\8-puzzle\8-puzzle\State.cpp(240,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW1\8-puzzle\8-puzzle\State.cpp(242,25): warning C4018: '<': signed/unsigned mismatch
+  main.cpp
+  Generating Code...
   8-puzzle.vcxproj -> C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW1\8-puzzle\Debug\8-puzzle.exe

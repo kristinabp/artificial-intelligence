@@ -1,6 +1,6 @@
 #include "PuzzleSolver.h"
 
-int PuzzleSolver::func(int threshold, State s, std::stack<std::string>& path, std::vector<std::vector<std::vector<int>>>& visitedStates)
+int PuzzleSolver::search(int threshold, State s, std::stack<std::string>& path, std::vector<std::vector<std::vector<int>>>& visitedStates)
 {
 	int f = s.f();
 	if (f > threshold)
@@ -13,14 +13,14 @@ int PuzzleSolver::func(int threshold, State s, std::stack<std::string>& path, st
 		return -1;
 	}
 
-	std::vector<State*> adj = s.generateChildren();
+	std::vector<State*> children = s.generateChildren();
 	int minThreshold = std::numeric_limits<int>::max();
-	for (int i = 0; i < adj.size(); i++)
+	for (int i = 0; i < children.size(); i++)
 	{
-		if (!isVisited(adj[i]->getState(), visitedStates))
+		if (!isVisited(children[i]->getState(), visitedStates))
 		{
-			visitedStates.push_back(adj[i]->getState());
-			int temp = func(threshold, *adj[i], path, visitedStates);
+			visitedStates.push_back(children[i]->getState());
+			int temp = search(threshold, *children[i], path, visitedStates);
 			if (temp == -1)
 			{
 				path.push(s.getDirection());
@@ -35,7 +35,7 @@ int PuzzleSolver::func(int threshold, State s, std::stack<std::string>& path, st
 	return minThreshold;
 }
 
-bool PuzzleSolver::func2(State start)
+bool PuzzleSolver::idaStar(State start)
 {
 	std::stack<std::string> path;
 	std::vector<std::vector<std::vector<int>>> visitedStates;
@@ -47,7 +47,7 @@ bool PuzzleSolver::func2(State start)
 	auto startt = std::chrono::steady_clock::now();
 	while (!goalStateFound)
 	{
-		curThreshold = func(threshold, start, path, visitedStates);
+		curThreshold = search(threshold, start, path, visitedStates);
 		if (curThreshold == -1)
 		{
 			goalStateFound = true;
@@ -94,7 +94,7 @@ void PuzzleSolver::solve(State start)
 	if (start.isSolvable())
 	{
 		std::cout << "This puzzle is solvable.\n";
-		func2(start);
+		idaStar(start);
 	}
 	else
 		std::cout << "This puzzle is unsolvable.\n";

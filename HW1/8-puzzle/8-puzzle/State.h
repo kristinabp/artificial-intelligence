@@ -25,7 +25,7 @@ private:
 
 public:
 	State(int n, int index, int curPathCost, State* parent);
-	State(std::vector<std::vector<int>> state, std::pair<int, int> zeroPosition, int curPathCost, State* parent, std::string direction);
+	State(std::vector<std::vector<int>> state, std::pair<int, int> zeroPosition, int curPathCost, State* parent, std::string direction, std::vector<std::vector<int>> goalState);
 	State& operator=(const State& other);
 	bool operator==(const State& other) const;
 	

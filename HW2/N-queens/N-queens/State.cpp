@@ -5,7 +5,7 @@ int State::getIndexRight(int row, int col) const
 	if (col - row <= 0)
 		return this->size - abs(col - row) - 1;
 	else
-		return col - row + this->size - 1;
+		return col - row + this->size;
 	
 }
 
@@ -14,16 +14,18 @@ State::State(int n): size(n)
 	this->numRowConf.resize(n, 0);
 	this->leftDiagConf.resize(2 * n - 1, 0);
 	this->rightDiagConf.resize(2 * n - 1, 0);
+	this->queens.resize(n, 0);
 
 	srand((unsigned)time(0));
 	std::vector<int> numOfQueensPerRow(n, 0);
 	std::vector<int> numOfQueensPerRightDiag(2 * n - 1, 0);
 	std::vector<int> numOfQueensPerLeftDiag(2 * n - 1, 0);
+	
 	for (int i = 0; i < this->size; i++)
 	{
 		int randRow = rand() % this->size;
 		Queen queen(randRow, i);
-		this->queens.push_back(queen);
+		this->queens[i] = randRow;
 		numOfQueensPerRow[randRow]++;
 		numOfQueensPerRightDiag[getIndexRight(randRow, i)]++;
 		numOfQueensPerLeftDiag[randRow + i]++;
@@ -48,7 +50,7 @@ int State::getColWithQueenWithMaxConf()
 
 	for (int i = 0; i < this->size; i++)
 	{
-		int row = this->queens[i].getRow();
+		int row = this->queens[i];
 		conflicts = this->numRowConf[row] + this->rightDiagConf[getIndexRight(row, i)] + this->leftDiagConf[i + row];
 		if (conflicts > maxConflicts)
 		{
@@ -73,7 +75,7 @@ int State::getRowWithMinConf(int col)
 
 	for (int i = 0; i < this->size; i++)
 	{
-		conflicts = this->numRowConf[this->queens[i].getRow()] + this->rightDiagConf[i + this->queens[i].getRow()] + this->leftDiagConf[i + this->queens[i].getRow()];
+		conflicts = this->numRowConf[this->queens[i]] + this->rightDiagConf[i + this->queens[i]] + this->leftDiagConf[i + this->queens[i]];
 		
 
 	}
@@ -81,8 +83,10 @@ int State::getRowWithMinConf(int col)
 	return 0;
 }
 
-void State::moveQueen()
+void State::moveQueen(int curCol, int newRow)
 {
+	this->queens[curCol] = newRow;
+	// to do - update the conflicts
 }
 
 int State::getSize() const
@@ -96,8 +100,8 @@ bool State::hasConflicts() const
 	int row, col;
 	for (int i = 0; i < this->size; i++)
 	{
-		row = this->queens[i].getRow();
-		col = this->queens[i].getCol();
+		row = this->queens[i];
+		col = i;
 		conflicts = this->numRowConf[row] + this->rightDiagConf[col + row] + this->leftDiagConf[col + row];
 		if (conflicts != 0)
 			return true;
@@ -111,7 +115,7 @@ void State::printState() const
 	{
 		for (int j = 0; j < this->size; j++)
 		{
-			if (this->queens[j].getRow() == i && this->queens[j].getCol() == j)
+			if (this->queens[j] == i)
 				std::cout << "* ";
 			else
 				std::cout << "_ ";

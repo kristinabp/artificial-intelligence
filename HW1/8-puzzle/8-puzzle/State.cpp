@@ -45,7 +45,7 @@ State::State(int n, int index, int curPathCost, State* parent)
 	}
 }
 
-State::State(std::vector<std::vector<int>> state, std::pair<int, int> zeroPosition, int curPathCost, State* parent, std::string direction)
+State::State(std::vector<std::vector<int>> state, std::pair<int, int> zeroPosition, int curPathCost, State* parent, std::string direction, std::vector<std::vector<int>> goalState)
 {
 	this->direction = direction;
 	this->parent = parent;
@@ -54,20 +54,7 @@ State::State(std::vector<std::vector<int>> state, std::pair<int, int> zeroPositi
 	this->zeroPosition = zeroPosition;
 	this->sizeDesk = state.size();
 	this->goalZeroPosition = parent->getGoalZeroPosition();
-	int counter = 1;
-	for (int i = 0; i < this->sizeDesk; i++)
-	{
-		this->goalState.push_back(std::vector<int>());
-		for (int j = 0; j < this->sizeDesk; j++)
-		{
-			if (i == this->goalZeroPosition.first && j == this->goalZeroPosition.second)
-			{
-				this->goalState[i].push_back(0);
-			}
-			else
-				this->goalState[i].push_back(counter++);
-		}
-	}
+	this->goalState = goalState;
 }
 
 State& State::operator=(const State& other)
@@ -136,29 +123,28 @@ std::vector<State*> State::generateChildren()
 	{
 		std::vector<std::vector<int>> newState = this->state;
 		swap(newState, this->zeroPosition.first, this->zeroPosition.second, this->zeroPosition.first - 1, this->zeroPosition.second);
-		children.push_back(new State(newState, { this->zeroPosition.first - 1, this->zeroPosition.second }, this->curPathCost + 1, this, "down"));
-		
+		children.push_back(new State(newState, { this->zeroPosition.first - 1, this->zeroPosition.second }, this->curPathCost + 1, this, "down", this->goalState));
 	}
 
 	if (!isExternalPoint(this->zeroPosition.first + 1, this->zeroPosition.second))
 	{
 		std::vector<std::vector<int>> newState = this->state;
 		swap(newState, this->zeroPosition.first, this->zeroPosition.second, this->zeroPosition.first + 1, this->zeroPosition.second);
-		children.push_back(new State(newState, { this->zeroPosition.first + 1, this->zeroPosition.second }, this->curPathCost + 1, this, "up"));
+		children.push_back(new State(newState, { this->zeroPosition.first + 1, this->zeroPosition.second }, this->curPathCost + 1, this, "up", this->goalState));
 	}
 
 	if (!isExternalPoint(this->zeroPosition.first, this->zeroPosition.second - 1))
 	{
 		std::vector<std::vector<int>> newState = this->state;
 		swap(newState, this->zeroPosition.first, this->zeroPosition.second, this->zeroPosition.first, this->zeroPosition.second - 1);
-		children.push_back(new State(newState, { this->zeroPosition.first, this->zeroPosition.second -1}, this->curPathCost + 1, this, "right"));
+		children.push_back(new State(newState, { this->zeroPosition.first, this->zeroPosition.second -1}, this->curPathCost + 1, this, "right", this->goalState));
 	}
 
 	if (!isExternalPoint(this->zeroPosition.first, this->zeroPosition.second + 1))
 	{
 		std::vector<std::vector<int>> newState = this->state;
 		swap(newState, this->zeroPosition.first, this->zeroPosition.second, this->zeroPosition.first, this->zeroPosition.second + 1);
-		children.push_back(new State(newState, { this->zeroPosition.first, this->zeroPosition.second+1 }, this->curPathCost + 1, this, "left"));
+		children.push_back(new State(newState, { this->zeroPosition.first, this->zeroPosition.second+1 }, this->curPathCost + 1, this, "left", this->goalState));
 	}
 
 	return children;

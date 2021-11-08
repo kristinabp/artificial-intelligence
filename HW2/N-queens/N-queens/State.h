@@ -6,19 +6,18 @@
 #include<stdlib.h>
 #include<time.h>
 #include<queue>
+#include<set>
 
 class State
 {
 private:
-	std::vector<Queen> queens;
+	std::vector<int> queens;
 	std::vector<int> numRowConf;
 	std::vector<int> rightDiagConf; // from left to right
 	std::vector<int> leftDiagConf; // from right to left
 	int size;
 
 	int getIndexRight(int row, int col) const;
-	void initQueenMinMax(int col);
-	void updateConflicts(int col, int row);
 
 public:
 	State(int n);
@@ -26,7 +25,7 @@ public:
 	void printState()const;
 	int getColWithQueenWithMaxConf();
 	int getRowWithMinConf(int col);
-	void moveQueen();
+	void moveQueen(int curCol, int newRow);
 	int getSize()const;
 	bool hasConflicts()const;
 };
