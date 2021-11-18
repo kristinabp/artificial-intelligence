@@ -1,2 +1,6 @@
 ﻿  main.cpp
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW2\N-queens\N-queens\main.cpp(82,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW2\N-queens\N-queens\main.cpp(91,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW2\N-queens\N-queens\main.cpp(123,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW2\N-queens\N-queens\main.cpp(131,21): warning C4018: '<': signed/unsigned mismatch
   N-queens.vcxproj -> C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW2\N-queens\Debug\N-queens.exe

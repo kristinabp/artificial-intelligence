@@ -22,38 +22,6 @@ int getIndexRight(int row, int col)
 		return col - row + n - 1;
 }
 
-//void initialize(int n)
-//{
-//	numRowConfl.resize(n, 0);
-//	numRightDiagConfl .resize(2 * n - 1, 0);
-//	numLeftDiagConfl.resize(2 * n - 1, 0);
-//	queens.resize(n, 0);
-//
-//	srand((unsigned)time(0));
-//	std::vector<int> numOfQueensPerRow(n, 0);
-//	std::vector<int> numOfQueensPerRightDiag(2 * n - 1, 0);
-//	std::vector<int> numOfQueensPerLeftDiag(2 * n - 1, 0);
-//
-//	for (int i = 0; i < n; i++)
-//	{
-//		int randRow = rand() % n;
-//		queens[i] = randRow;
-//		numOfQueensPerRow[randRow]++;
-//		numOfQueensPerRightDiag[getIndexRight(randRow, i, n)]++;
-//		numOfQueensPerLeftDiag[randRow + i]++;
-//	}
-//
-//	for (int i = 0; i < n; i++)
-//		numRowConfl [i] = ((numOfQueensPerRow[i] - 1) + 1) * (numOfQueensPerRow[i] - 1) / 2;
-//
-//	for (int i = 0; i < n * 2 - 1; i++)
-//	{
-//		numRightDiagConfl [i] = ((numOfQueensPerRightDiag[i] - 1) + 1) * (numOfQueensPerRightDiag[i] - 1) / 2;
-//		numLeftDiagConfl[i] = ((numOfQueensPerLeftDiag[i] - 1) + 1) * (numOfQueensPerLeftDiag[i] - 1) / 2;
-//	}
-//
-//}
-
 void minConflInit()
 {
 	numRowConfl.resize(n, 0);
@@ -61,11 +29,7 @@ void minConflInit()
 	numLeftDiagConfl.resize(2 * n - 1, 0);
 	queens.resize(n, 0);
 
-	queens[0] = n - 1;
-	numRowConfl[n - 1]++;
-	numRightDiagConfl[0]++;
-	numLeftDiagConfl[n - 1]++;
-	for (int col = 1; col < n ; col++)
+	for (int col = 0; col < n; col++)
 	{
 		std::vector<int> minRowConfl;
 		int minConfl = INT32_MAX;
@@ -88,7 +52,122 @@ void minConflInit()
 		numRightDiagConfl[getIndexRight(curRow, col)]++;
 		numLeftDiagConfl[curRow + col]++;
 	}
+}
 
+void initWithRemainder()
+{
+	numRowConfl.resize(n, 0);
+	numRightDiagConfl.resize(2 * n - 1, 0);
+	numLeftDiagConfl.resize(2 * n - 1, 0);
+	queens.resize(n, 0);
+
+	std::vector<int> evenPos;
+	std::vector<int> oddPos;
+	if (n % 6 == 2)
+	{
+		for (int i = n - 1; i >= 0; i--)
+		{
+			if (i % 2 == 0)
+				evenPos.push_back(i);
+			else
+				oddPos.push_back(i);
+		}
+
+		std::swap(oddPos[0], oddPos[1]);
+		int curElem = oddPos[2];
+		oddPos.erase(oddPos.begin() + 2);
+		oddPos.push_back(curElem);
+
+		int col = 0;
+		for (int i = 0; i < evenPos.size(); i++)
+		{
+			queens[col] = evenPos[i];
+			numRowConfl[evenPos[i]]++;
+			numRightDiagConfl[getIndexRight(evenPos[i], col)]++;
+			numLeftDiagConfl[evenPos[i] + col]++;
+			col++;
+		}
+
+		for (int i = 0; i < oddPos.size(); i++)
+		{
+			queens[col] = oddPos[i];
+			numRowConfl[oddPos[i]]++;
+			numRightDiagConfl[getIndexRight(oddPos[i], col)]++;
+			numLeftDiagConfl[oddPos[i] + col]++;
+			col++;
+		}
+	}
+	else if (n % 6 == 3)
+	{
+		for (int i = n - 1; i >= 0; i--)
+		{
+			if (i % 2 == 0)
+				evenPos.push_back(i);
+			else
+				oddPos.push_back(i);
+		}
+
+		int curElem = oddPos[0];
+		oddPos.erase(oddPos.begin());
+		oddPos.push_back(curElem);
+
+		int el1 = evenPos[0];
+		evenPos.erase(evenPos.begin());
+		evenPos.push_back(el1);
+
+		int el2 = evenPos[0];
+		evenPos.erase(evenPos.begin());
+		evenPos.push_back(el2);
+
+		int col = 0;
+		for (int i = 0; i < oddPos.size(); i++)
+		{
+			queens[col] = oddPos[i];
+			numRowConfl[oddPos[i]]++;
+			numRightDiagConfl[getIndexRight(oddPos[i], col)]++;
+			numLeftDiagConfl[oddPos[i] + col]++;
+			col++;
+		}
+		for (int i = 0; i < evenPos.size(); i++)
+		{
+			queens[col] = evenPos[i];
+			numRowConfl[evenPos[i]]++;
+			numRightDiagConfl[getIndexRight(evenPos[i], col)]++;
+			numLeftDiagConfl[evenPos[i] + col]++;
+			col++;
+		}
+
+		
+	}
+	else
+	{
+		for (int i = 0; i < n; i++)
+		{
+			if (i % 2 == 0)
+				evenPos.push_back(i);
+			else
+				oddPos.push_back(i);
+		}
+
+		int col = 0;
+		for (int i = evenPos.size() - 1; i >= 0; i--)
+		{
+			queens[col] = evenPos[i];
+			numRowConfl[evenPos[i]]++;
+			numRightDiagConfl[getIndexRight(evenPos[i], col)]++;
+			numLeftDiagConfl[evenPos[i] + col]++;
+			col++;
+		}
+
+		for (int i = oddPos.size() - 1; i >= 0; i--)
+		{
+			queens[col] = oddPos[i];
+			numRowConfl[oddPos[i]]++;
+			numRightDiagConfl[getIndexRight(oddPos[i], col)]++;
+			numLeftDiagConfl[oddPos[i] + col]++;
+			col++;
+		}
+	}
 }
 
 void printState()
@@ -175,25 +254,6 @@ int getRowWithMinConf(int col)
 
 int getColWithQueenWithMaxConf()
 {
-	/*int conflicts;
-	int maxConflicts = 0;
-	std::priority_queue<int> colWithQueenWithMaxConf;
-
-	for (int i = 0; i < n; i++)
-	{
-		int row = queens[i];
-		conflicts = numRowConfl[row] + numRightDiagConfl[getIndexRight(row, i, n)] + numLeftDiagConfl[i + row] ;
-		if (conflicts > maxConflicts)
-		{
-			colWithQueenWithMaxConf.push(i);
-			maxConflicts = conflicts;
-		}
-		else if (conflicts == maxConflicts && conflicts != 0)
-		{
-			colWithQueenWithMaxConf.push(i);
-		}
-	}*/
-
 	int maxConfl = INT32_MIN;
 	std::vector<int> maxColConfl;
 	for (int col = 0; col < n; col++)
@@ -216,10 +276,11 @@ void solve()
 {
 	srand((unsigned)time(0));
 	minConflInit();
+	//initWithRemainder();
 	//printState();
 	auto startt = std::chrono::steady_clock::now();
 	int counter = 0;
-	while (counter <= K*n || hasConflicts())
+	while (counter <= K*n && hasConflicts())
 	{
 		int col = getColWithQueenWithMaxConf();
 		int row = getRowWithMinConf(col);
@@ -227,7 +288,13 @@ void solve()
 		counter++;
 	}
 	if (hasConflicts())
+	{
+		queens.clear();
+		numLeftDiagConfl.clear();
+		numRightDiagConfl.clear();
+		numRowConfl.clear();
 		solve();
+	}
 	auto endd = std::chrono::steady_clock::now();
 	//printState();
 	std::cout << std::chrono::duration <double, std::milli>(endd - startt).count() << " ms" << std::endl;
@@ -237,9 +304,6 @@ void solve()
 int main()
 {
 	std::cin >> n;
-
 	solve();
-
-
 	return system("pause");
 }

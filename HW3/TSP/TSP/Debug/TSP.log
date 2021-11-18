@@ -1,0 +1,8 @@
+﻿  main.cpp
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW3\TSP\TSP\main.cpp(64,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW3\TSP\TSP\main.cpp(85,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW3\TSP\TSP\main.cpp(87,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW3\TSP\TSP\main.cpp(135,19): warning C4018: '>=': signed/unsigned mismatch
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW3\TSP\TSP\main.cpp(150,19): warning C4018: '>=': signed/unsigned mismatch
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW3\TSP\TSP\main.cpp(298,20): warning C4018: '<': signed/unsigned mismatch
+  TSP.vcxproj -> C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW3\TSP\Debug\TSP.exe

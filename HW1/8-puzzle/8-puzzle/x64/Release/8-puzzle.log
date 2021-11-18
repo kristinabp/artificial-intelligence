@@ -1,0 +1,11 @@
+﻿  main.cpp
+  PuzzleSolver.cpp
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW1\8-puzzle\8-puzzle\PuzzleSolver.cpp(59,24): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  State.cpp
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW1\8-puzzle\8-puzzle\State.cpp(7,23): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW1\8-puzzle\8-puzzle\State.cpp(55,31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 492 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  8-puzzle.vcxproj -> C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW1\8-puzzle\x64\Release\8-puzzle.exe

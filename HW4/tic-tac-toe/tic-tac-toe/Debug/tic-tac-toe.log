@@ -1,0 +1,4 @@
+﻿  main.cpp
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW4\tic-tac-toe\tic-tac-toe\main.cpp(240,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW4\tic-tac-toe\tic-tac-toe\main.cpp(275,20): warning C4018: '<': signed/unsigned mismatch
+  tic-tac-toe.vcxproj -> C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW4\tic-tac-toe\Debug\tic-tac-toe.exe

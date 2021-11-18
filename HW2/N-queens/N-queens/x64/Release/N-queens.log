@@ -1,0 +1,9 @@
+﻿  main.cpp
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW2\N-queens\N-queens\main.cpp(153,3): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW2\N-queens\N-queens\main.cpp(162,3): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Generating code
+  4 of 111 functions ( 3.6%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  N-queens.vcxproj -> C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW2\N-queens\x64\Release\N-queens.exe
