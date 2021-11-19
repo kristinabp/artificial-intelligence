@@ -4,6 +4,7 @@
 #include<algorithm>
 #include<limits>
 #include<map>
+#include<chrono>
 
 std::vector<std::vector<std::string>> table;
 std::string computer = "X";
@@ -78,7 +79,7 @@ void printTable()
 {
 	for (int i = 0; i < 3; i++)
 	{
-		std::cout << " _  _  _\n";
+		std::cout << " _  _  _  _  _  _  _\n";
 		std::cout << "| ";
 		for (int j = 0; j < 3; j++)
 		{
@@ -87,7 +88,7 @@ void printTable()
 
 		std::cout << '\n';
 	}
-	std::cout << " _  _  _\n";
+	std::cout << " _  _  _  _  _  _  _\n";
 }
 
 std::vector<std::pair<int,int>> generateFreeMoves(std::vector<std::vector<std::string>> curState)
@@ -166,7 +167,7 @@ char checkWinner(bool isMaximizingPlayer)
 }
 
 std::pair<int, std::pair<int, int>> minimax(std::vector<std::vector<std::string>>& curState, int curDepth, int _alpha, int _beta, bool isMaxPlayer)
-{
+{	
 	std::string result = gameDone();
 	if (result == "X")
 		return { 1, {0, 0} };
@@ -177,6 +178,7 @@ std::pair<int, std::pair<int, int>> minimax(std::vector<std::vector<std::string>
 
 	int x = -1;
 	int y = -1;
+
 	if (isMaxPlayer)
 	{
 		int maxValue = INT32_MIN;
@@ -187,7 +189,8 @@ std::pair<int, std::pair<int, int>> minimax(std::vector<std::vector<std::string>
 				if (table[i][j] == "")
 				{
 					table[i][j] = computer;
-					std::pair<int, std::pair<int, int>> value = minimax(table, depth - 1, alpha, beta, false);
+					std::pair<int, std::pair<int, int>> value = minimax(table, depth - 1, _alpha, _beta, false);
+
 					if (value.first > maxValue)
 					{
 						maxValue = value.first;
@@ -195,6 +198,16 @@ std::pair<int, std::pair<int, int>> minimax(std::vector<std::vector<std::string>
 						y = j;
 					}
 					table[i][j] = "";
+
+					if (maxValue >= _beta)
+					{
+						return { maxValue, {x, y } };
+					}
+
+					if (maxValue > _alpha)
+					{
+						_alpha = maxValue;
+					}
 				}
 			}
 		}
@@ -210,7 +223,7 @@ std::pair<int, std::pair<int, int>> minimax(std::vector<std::vector<std::string>
 				if (table[i][j] == "")
 				{
 					table[i][j] = player;
-					std::pair<int, std::pair<int, int>> value = minimax(table, depth - 1, alpha, beta, true);
+					std::pair<int, std::pair<int, int>> value = minimax(table, depth - 1, _alpha, _beta, true);
 					if (value.first < minValue)
 					{
 						minValue = value.first;
@@ -218,6 +231,16 @@ std::pair<int, std::pair<int, int>> minimax(std::vector<std::vector<std::string>
 						y = j;
 					}
 					table[i][j] = "";
+
+					if (minValue <= _alpha)
+					{
+						return { minValue, {x, y } };
+					}
+
+					if (minValue < _beta)
+					{
+						_beta = minValue;
+					}
 				}
 			}
 		}
@@ -247,45 +270,42 @@ void playerTurn()
 
 void computerTurn()
 {
-	std::pair<int, std::pair<int, int>> values = minimax(table, depth);
+	std::pair<int, std::pair<int, int>> values = minimax(table, depth, alpha, beta, true);
 	table[values.second.first][values.second.second] = computer;
 }
 
 void play(bool computerFirst)
 {
-	if (computerFirst)
+	while (true)
 	{
-		while (true)
+		std::string result = gameDone();
+		if (result != "")
 		{
-			std::string result = gameDone();
 			if (result == "X")
-			{
-				std::cout << "Computer wins!\n";
-				return;
-			}
+				std::cout << "X wins!\n";
 			else if (result == "O")
-			{
-				std::cout << "You win!\n";
-				return;
-			}
+				std::cout << "O wins!\n";
 			else if (result == "T")
-			{
 				std::cout << "It's a tie!\n";
-				return;
-			}
+			return;
 		}
-	}
-	else
-	{
-		while (gameDone() == "")
+
+		if (computerFirst)
+		{
+			auto startt = std::chrono::steady_clock::now();
+			computerTurn();
+			auto endd = std::chrono::steady_clock::now();
+			std::cout << "Computer time is: " << std::chrono::duration <double, std::milli>(endd - startt).count() / 1000 << " sec" << std::endl;
+			computerFirst = false;
+		}
+		else
 		{
 			playerTurn();
-			computerTurn();
-			printTable();
+			computerFirst = true;
 		}
-	}
 
-	std::cout << gameDone() << "wins!\n";
+		printTable();
+	}
 }
 
 int main()
