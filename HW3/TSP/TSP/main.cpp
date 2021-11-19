@@ -7,9 +7,9 @@
 #include<iomanip>
 #include<string>
 
-#define GEN_SIZE 500
-#define MAX_GENERATIONS 100
-#define ELITE_GENS 250
+#define GEN_SIZE 600
+#define MAX_GENERATIONS 70
+#define ELITE_GENS 300
 
 int n;
 std::vector<std::vector<int>> population;
@@ -106,9 +106,81 @@ double currentSolution(std::vector<int>& path, int pathIndex, bool isFirst, bool
 	return distance;
 }
 
+void twoPointCrossover(std::vector<int>& parent1, std::vector<int>& parent2, std::vector<std::vector<int>>& newPopulation)
+{
+	int randPoint2 = rd() % parent1.size();;
+	int randPoint1 = rd() % parent1.size();;
+	while (randPoint1 >= randPoint2)
+	{
+		randPoint2 = rd() % parent1.size();
+		randPoint1 = rd() % parent1.size();
+	}
+	std::vector<int> child1;
+	std::vector<int> child2;
+
+	child1.resize(parent1.size(),-1);
+	child2.resize(parent2.size(),-1);
+
+	for (int i = randPoint1; i < randPoint2; i++)
+	{
+		child1[i] = parent2[i];
+		child2[i] = parent1[i];
+	}
+
+	int curPosition = randPoint2;
+	int childCurPos = randPoint2;
+	int count = randPoint2 - randPoint1;
+	while (count < parent1.size())
+	{
+		if (std::find(child1.begin(), child1.end(), parent1[curPosition]) != child1.end())
+		{
+			curPosition++;
+		}
+		else
+		{
+			child1[childCurPos]=parent1[curPosition];
+			count++;
+			curPosition++;
+			childCurPos++;
+		}
+
+		if (curPosition == parent1.size())
+			curPosition = 0;
+
+		if (childCurPos == parent1.size())
+			childCurPos = 0;
+	}
+
+	curPosition = randPoint2;
+	childCurPos = randPoint2;
+	count = randPoint2 - randPoint1;
+	while (count < parent2.size())
+	{
+		if (std::find(child2.begin(), child2.end(), parent2[curPosition]) != child2.end())
+		{
+			curPosition++;
+		}
+		else
+		{
+			child2[childCurPos] = parent2[curPosition];
+			count++;
+			curPosition++;
+			childCurPos++;
+		}
+
+		if (curPosition == parent2.size())
+			curPosition = 0;
+
+		if (childCurPos == parent2.size())
+			childCurPos = 0;
+	}
+
+	newPopulation.push_back(child1);
+	newPopulation.push_back(child2);
+}
+
 void onePointCrossover(std::vector<int>& parent1, std::vector<int>& parent2, std::vector<std::vector<int>>& newPopulation)
 {
-	//srand((unsigned)time(NULL));
 	int randPoint =rd() % parent1.size() + 1;
 	std::vector<int> child1;
 	std::vector<int> child2;
@@ -160,7 +232,6 @@ void crossover(std::vector<std::vector<int>>& newPopulation, std::vector<std::ve
 {
 	int childSize = 0;
 	//from elite number of parents we generate elite number of children
-	//srand((unsigned)time(NULL));
 	while (childSize < ELITE_GENS)
 	{
 		int randomParent1 = rd() % 100;
@@ -185,23 +256,21 @@ void crossover(std::vector<std::vector<int>>& newPopulation, std::vector<std::ve
 			indexPar2++;
 		}
 
-		onePointCrossover(elitePopulation[indexPar1-1], elitePopulation[indexPar2-1], newPopulation);
+		twoPointCrossover(elitePopulation[indexPar1-1], elitePopulation[indexPar2-1], newPopulation);
 		childSize+=2;
 	}
 }
 
 void mutation(std::vector<std::vector<int>>& newPopulation)
 {
-	//swap mutation -> we swap to genes
-	//srand((unsigned)time(NULL));
+	//swap mutation -> we swap two genes
 	int randNum = rd() % 100;
 	int numberOfMutations = rd() % newPopulation.size();
-	if (randNum == 1)
+	if (randNum % 3 == 0)
 	{
 		for (int i = 0; i < numberOfMutations; i++)
 		{
-			//srand((unsigned)time(NULL));
-			int indexPath = rd() % n;
+			int indexPath = rd() % (ELITE_GENS);
 			int randPos1 = rd() % n;
 			int randPos2 = rd() % n;
 			while (randPos2 == randPos1)
@@ -240,9 +309,10 @@ int main()
 	generateInitialPopulation();
 
 	std::sort(population.begin(), population.end(), compareFitness);
-	double bestDistance = currentSolution(population[0], 0, true, true);
+	double prevDistance = currentSolution(population[0], 0, true, true);
 	bool earlyFound = false;
 
+	int countEquals = 0;
 	for (int i = 0; i < MAX_GENERATIONS; i++)
 	{
 		std::vector<std::vector<int>> eliteGens;
@@ -251,7 +321,7 @@ int main()
 		{
 			eliteGens[j] = population[j];
 		}
-
+		
 		//calculate probability and save probability for each path
 		probability.resize(ELITE_GENS);
 		double allFitness = 0;
@@ -293,12 +363,11 @@ int main()
 		probability.clear();
 	}
 	if (!earlyFound)
-		currentSolution(population[0], 99, false, true);
+		currentSolution(population[0], MAX_GENERATIONS - 1, false, true);
 
 	for (int i = 0; i < population[0].size(); i++)
 	{
 		std::cout << cities[population[0][i]].second << '\n';
 	}
-
 	return system("pause");
-}
+} 
