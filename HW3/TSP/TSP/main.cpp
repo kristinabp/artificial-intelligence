@@ -309,7 +309,7 @@ int main()
 	generateInitialPopulation();
 
 	std::sort(population.begin(), population.end(), compareFitness);
-	double prevDistance = currentSolution(population[0], 0, true, true);
+	double distance = currentSolution(population[0], 0, true, true);
 	bool earlyFound = false;
 
 	int countEquals = 0;
@@ -350,12 +350,12 @@ int main()
 
 		if ((i == 5) || (i == 7) || (i == 50))
 		{
-			double curDistance = currentSolution(population[0], i, false, true);
+			currentSolution(population[0], i, false, true);
 		}
 
 		if (curDistance == 1595.738522033024)
 		{
-			double curDistance = currentSolution(population[0], i, false, true);
+			currentSolution(population[0], i, false, true);
 			earlyFound = true;
 			break;
 		}

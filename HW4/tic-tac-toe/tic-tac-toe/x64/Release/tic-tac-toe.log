@@ -1,0 +1,7 @@
+﻿  main.cpp
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW4\tic-tac-toe\tic-tac-toe\main.cpp(96,47): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 300 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  tic-tac-toe.vcxproj -> C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW4\tic-tac-toe\x64\Release\tic-tac-toe.exe

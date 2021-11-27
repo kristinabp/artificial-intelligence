@@ -6,52 +6,42 @@
 #include<map>
 #include<chrono>
 
+#define TABLE_SIZE 3
 std::vector<std::vector<std::string>> table;
 std::string computer = "X";
 std::string player = "O";
-int depth = 0;
 int alpha = INT32_MIN;
 int beta = INT32_MAX;
 
-bool validMove(int row, int col)
-{
-	if (row < 0 || row >3 || col < 0 || col>3)
-		return false;
-	if (table[row][col] != "")
-		return false;
-
-	return true;
-}
-
 std::string gameDone()
 {
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < TABLE_SIZE; i++)
 	{
-		if (table[0][i] != "" && table[0][i] == table[1][i] &&
+		if (table[0][i] != "-" && table[0][i] == table[1][i] &&
 			table[0][i] == table[2][i])
 			return table[0][i];
 	}
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < TABLE_SIZE; i++)
 	{
-		if (table[i][0] != "" && table[i][0] == table[i][1] &&
+		if (table[i][0] != "-" && table[i][0] == table[i][1] &&
 			table[i][0] == table[i][2])
 			return table[i][0];
 	}
 
-	if (table[0][0] != "" && table[0][0] == table[1][1] &&
+	if (table[0][0] != "-" && table[0][0] == table[1][1] &&
 		table[0][0] == table[2][2])
 		return table[0][0];
 
-	if (table[0][2] != "" && table[0][2] == table[1][1] &&
+	if (table[0][2] != "-" && table[0][2] == table[1][1] &&
 		table[0][2] == table[2][0])
 		return table[0][2];
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < TABLE_SIZE; i++)
 	{
-		for (int j = 0; j < 3; j++)
+		for (int j = 0; j < TABLE_SIZE; j++)
 		{
-			if (table[i][j] == "")
+			if (table[i][j] == "-")
 				return "";
 		}
 	}
@@ -59,122 +49,58 @@ std::string gameDone()
 	return "T";
 }
 
-std::map<char, int> scores = {
-								{'X', 1},
-								{'O', -1},
-								{'T', 0}
-};
-
 void initTable()
 {
-	table.resize(3);
-	for(int i=0; i<3; i++)
-		for (int j = 0; j < 3; j++)
+	table.resize(TABLE_SIZE);
+	for (int i = 0; i < TABLE_SIZE; i++)
+		for (int j = 0; j < TABLE_SIZE; j++)
 		{
-			table[i].push_back("");
+			table[i].push_back("-");
 		}
 }
 
 void printTable()
 {
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < TABLE_SIZE; i++)
 	{
-		std::cout << " _  _  _  _  _  _  _\n";
+		std::cout << "  __  __  __   \n";
 		std::cout << "| ";
-		for (int j = 0; j < 3; j++)
+		for (int j = 0; j < TABLE_SIZE; j++)
 		{
 			std::cout << table[i][j] << " | ";
 		}
 
 		std::cout << '\n';
 	}
-	std::cout << " _  _  _  _  _  _  _\n";
+	std::cout << "  __  __  __  \n";
 }
 
-std::vector<std::pair<int,int>> generateFreeMoves(std::vector<std::vector<std::string>> curState)
+std::vector<std::pair<int, int>> getFreeMoves(std::vector<std::vector<std::string>> curState)
 {
 	std::vector<std::pair<int, int>> freeMoves;
-	for(int i=0; i<3; i++)
-		for (int j = 0; j < 3; j++)
+	for (int i = 0; i < TABLE_SIZE; i++)
+		for (int j = 0; j < TABLE_SIZE; j++)
 		{
-			if (curState[i][j] == "")
+			if (curState[i][j] == "-")
 				freeMoves.push_back({ i, j });
 		}
 
 	return freeMoves;
 }
 
-char checkWinner(bool isMaximizingPlayer)
+std::pair<int, std::pair<int, int>> minimax(std::vector<std::vector<std::string>>& curState, int _alpha, int _beta, bool isMaxPlayer)
 {
-	if (isMaximizingPlayer)
-	{
-		if (table[0][0] == "X" && table[0][1] == "X" && table[0][2] == "X")
-			return 'X';
-		if (table[1][0] == "X" && table[1][1] == "X" && table[1][2] == "X")
-			return 'X';
-		if (table[2][0] == "X" && table[2][1] == "X" && table[2][2] == "X")
-			return 'X';
-		if (table[0][0] == "X" && table[1][0] == "X" && table[2][0] == "X")
-			return 'X';
-		if (table[0][1] == "X" && table[1][1] == "X" && table[2][1] == "X")
-			return 'X';
-		if (table[0][2] == "X" && table[1][2] == "X" && table[2][2] == "X")
-			return 'X';
-		if (table[0][0] == "X" && table[1][1] == "X" && table[2][2] == "X")
-			return 'X';
-		if (table[0][2] == "X" && table[1][1] == "X" && table[2][0] == "X")
-			return 'X';
-
-		int openSpots = 0;
-		for (int i = 0; i < 3; i++)
-			for (int j = 0; j < 3; j++)
-				if (table[i][j] == "")
-					openSpots++;
-
-		if (openSpots == 0)
-			return 'T';
-	}
-	else
-	{
-		if (table[0][0] == "O" && table[0][1] == "O" && table[0][2] == "O")
-			return 'O';
-		if (table[1][0] == "O" && table[1][1] == "O" && table[1][2] == "O")
-			return 'O';
-		if (table[2][0] == "O" && table[2][1] == "O" && table[2][2] == "O")
-			return 'O';
-		if (table[0][0] == "O" && table[1][0] == "O" && table[2][0] == "O")
-			return 'O';
-		if (table[0][1] == "O" && table[1][1] == "O" && table[2][1] == "O")
-			return 'O';
-		if (table[0][2] == "O" && table[1][2] == "O" && table[2][2] == "O")
-			return 'O';
-		if (table[0][0] == "O" && table[1][1] == "O" && table[2][2] == "O")
-			return 'O';
-		if (table[0][2] == "O" && table[1][1] == "O" && table[2][0] == "O")
-			return 'O';
-
-		int openSpots = 0;
-		for (int i = 0; i < 3; i++)
-			for (int j = 0; j < 3; j++)
-				if (table[i][j] == "")
-					openSpots++;
-
-		if (openSpots == 0)
-			return 'T';
-	}
-
-	return ' ';
-}
-
-std::pair<int, std::pair<int, int>> minimax(std::vector<std::vector<std::string>>& curState, int curDepth, int _alpha, int _beta, bool isMaxPlayer)
-{	
 	std::string result = gameDone();
 	if (result == "X")
-		return { 1, {0, 0} };
+	{
+		int utility = getFreeMoves(table).size() + 1;
+		return { utility, {-1, -1} };
+	}
 	else if (result == "O")
-		return { -1, {0, 0} };
+		return { -1, {-1, -1} };
 	else if (result == "T")
-		return { 0, {0, 0} };
+		return { 0, {-1, -1} };
+
 
 	int x = -1;
 	int y = -1;
@@ -182,33 +108,28 @@ std::pair<int, std::pair<int, int>> minimax(std::vector<std::vector<std::string>
 	if (isMaxPlayer)
 	{
 		int maxValue = INT32_MIN;
-		for (int i = 0; i < 3; i++)
+		std::vector<std::pair<int, int>> freeM = getFreeMoves(table);
+		for (int i = 0; i < freeM.size(); i++)
 		{
-			for (int j = 0; j < 3; j++)
+			table[freeM[i].first][freeM[i].second] = computer;
+			int value = minimax(table, _alpha, _beta, false).first;
+
+			if (value > maxValue)
 			{
-				if (table[i][j] == "")
-				{
-					table[i][j] = computer;
-					std::pair<int, std::pair<int, int>> value = minimax(table, depth - 1, _alpha, _beta, false);
+				maxValue = value;
+				x = freeM[i].first;
+				y = freeM[i].second;
+			}
+			table[freeM[i].first][freeM[i].second] = "-";
 
-					if (value.first > maxValue)
-					{
-						maxValue = value.first;
-						x = i;
-						y = j;
-					}
-					table[i][j] = "";
+			if (maxValue >= _beta)
+			{
+				return { maxValue, {x, y } };
+			}
 
-					if (maxValue >= _beta)
-					{
-						return { maxValue, {x, y } };
-					}
-
-					if (maxValue > _alpha)
-					{
-						_alpha = maxValue;
-					}
-				}
+			if (maxValue > _alpha)
+			{
+				_alpha = maxValue;
 			}
 		}
 		return { maxValue, { x, y } };
@@ -216,32 +137,27 @@ std::pair<int, std::pair<int, int>> minimax(std::vector<std::vector<std::string>
 	else
 	{
 		int minValue = INT32_MAX;
-		for (int i = 0; i < 3; i++)
+		std::vector<std::pair<int, int>> freeM = getFreeMoves(table);
+		for (int i = 0; i < freeM.size(); i++)
 		{
-			for (int j = 0; j < 3; j++)
+			table[freeM[i].first][freeM[i].second] = player;
+			int value = minimax(table, _alpha, _beta, true).first;
+			if (value < minValue)
 			{
-				if (table[i][j] == "")
-				{
-					table[i][j] = player;
-					std::pair<int, std::pair<int, int>> value = minimax(table, depth - 1, _alpha, _beta, true);
-					if (value.first < minValue)
-					{
-						minValue = value.first;
-						x = i;
-						y = j;
-					}
-					table[i][j] = "";
+				minValue = value;
+				x = freeM[i].first;
+				y = freeM[i].second;
+			}
+			table[freeM[i].first][freeM[i].second] = "-";
 
-					if (minValue <= _alpha)
-					{
-						return { minValue, {x, y } };
-					}
+			if (minValue <= _alpha)
+			{
+				return { minValue, {x, y } };
+			}
 
-					if (minValue < _beta)
-					{
-						_beta = minValue;
-					}
-				}
+			if (minValue < _beta)
+			{
+				_beta = minValue;
 			}
 		}
 		return { minValue, { x, y } };
@@ -260,17 +176,17 @@ void playerTurn()
 		int column;
 		std::cin >> column;
 
-		if (table[row][column] == "")
+		if (table[row - 1][column - 1] == "-")
 		{
 			validIndex = true;
-			table[row][column] = player;
+			table[row - 1][column - 1] = player;
 		}
 	}
 }
 
 void computerTurn()
 {
-	std::pair<int, std::pair<int, int>> values = minimax(table, depth, alpha, beta, true);
+	std::pair<int, std::pair<int, int>> values = minimax(table, alpha, beta, true);
 	table[values.second.first][values.second.second] = computer;
 }
 
@@ -297,6 +213,7 @@ void play(bool computerFirst)
 			auto endd = std::chrono::steady_clock::now();
 			std::cout << "Computer time is: " << std::chrono::duration <double, std::milli>(endd - startt).count() / 1000 << " sec" << std::endl;
 			computerFirst = false;
+
 		}
 		else
 		{
@@ -310,7 +227,6 @@ void play(bool computerFirst)
 
 int main()
 {
-
 	initTable();
 	printTable();
 	std::cout << "Enter who is going to start first\n (1 for computer, 0 for player)\n";
@@ -318,8 +234,6 @@ int main()
 	std::cin >> computerFirst;
 	std::cout << "Computer = X \t Player = O" << '\n';
 	play(computerFirst);
-	
 
 	return system("pause");
 }
-
