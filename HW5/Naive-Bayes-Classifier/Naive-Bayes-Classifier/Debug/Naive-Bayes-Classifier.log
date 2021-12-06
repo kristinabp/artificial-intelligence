@@ -1,0 +1,50 @@
+﻿  Source.cpp
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW5\Naive-Bayes-Classifier\Naive-Bayes-Classifier\Source.cpp(61,17): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW5\Naive-Bayes-Classifier\Naive-Bayes-Classifier\Source.cpp(86,25): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW5\Naive-Bayes-Classifier\Naive-Bayes-Classifier\Source.cpp(106,113): warning C4244: 'argument': conversion from 'double' to '_Ty', possible loss of data
+          with
+          [
+              _Ty=float
+          ]
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW5\Naive-Bayes-Classifier\Naive-Bayes-Classifier\Source.cpp(107,114): warning C4244: 'argument': conversion from 'double' to '_Ty', possible loss of data
+          with
+          [
+              _Ty=float
+          ]
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW5\Naive-Bayes-Classifier\Naive-Bayes-Classifier\Source.cpp(108,182): warning C4244: 'argument': conversion from 'double' to '_Ty', possible loss of data
+          with
+          [
+              _Ty=float
+          ]
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW5\Naive-Bayes-Classifier\Naive-Bayes-Classifier\Source.cpp(110,119): warning C4244: 'argument': conversion from 'double' to '_Ty', possible loss of data
+          with
+          [
+              _Ty=float
+          ]
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW5\Naive-Bayes-Classifier\Naive-Bayes-Classifier\Source.cpp(111,120): warning C4244: 'argument': conversion from 'double' to '_Ty', possible loss of data
+          with
+          [
+              _Ty=float
+          ]
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW5\Naive-Bayes-Classifier\Naive-Bayes-Classifier\Source.cpp(112,192): warning C4244: 'argument': conversion from 'double' to '_Ty', possible loss of data
+          with
+          [
+              _Ty=float
+          ]
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW5\Naive-Bayes-Classifier\Naive-Bayes-Classifier\Source.cpp(145,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW5\Naive-Bayes-Classifier\Naive-Bayes-Classifier\Source.cpp(178,25): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW5\Naive-Bayes-Classifier\Naive-Bayes-Classifier\Source.cpp(189,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW5\Naive-Bayes-Classifier\Naive-Bayes-Classifier\Source.cpp(203,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW5\Naive-Bayes-Classifier\Naive-Bayes-Classifier\Source.cpp(208,16): warning C4244: 'initializing': conversion from '_Rep' to 'unsigned int', possible loss of data
+          with
+          [
+              _Rep=std::chrono::system_clock::rep
+          ]
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW5\Naive-Bayes-Classifier\Naive-Bayes-Classifier\Source.cpp(215,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW5\Naive-Bayes-Classifier\Naive-Bayes-Classifier\Source.cpp(239,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW5\Naive-Bayes-Classifier\Naive-Bayes-Classifier\Source.cpp(241,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW5\Naive-Bayes-Classifier\Naive-Bayes-Classifier\Source.cpp(248,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW5\Naive-Bayes-Classifier\Naive-Bayes-Classifier\Source.cpp(256,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW5\Naive-Bayes-Classifier\Naive-Bayes-Classifier\Source.cpp(270,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW5\Naive-Bayes-Classifier\Naive-Bayes-Classifier\Source.cpp(272,21): warning C4018: '<': signed/unsigned mismatch
+  Naive-Bayes-Classifier.vcxproj -> C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW5\Naive-Bayes-Classifier\Debug\Naive-Bayes-Classifier.exe

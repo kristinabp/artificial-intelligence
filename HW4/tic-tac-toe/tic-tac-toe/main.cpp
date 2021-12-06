@@ -97,7 +97,10 @@ std::pair<int, std::pair<int, int>> minimax(std::vector<std::vector<std::string>
 		return { utility, {-1, -1} };
 	}
 	else if (result == "O")
-		return { -1, {-1, -1} };
+	{
+		int utility = getFreeMoves(table).size() + 1;
+		return { -utility, {-1, -1} };
+	}
 	else if (result == "T")
 		return { 0, {-1, -1} };
 
@@ -213,7 +216,6 @@ void play(bool computerFirst)
 			auto endd = std::chrono::steady_clock::now();
 			std::cout << "Computer time is: " << std::chrono::duration <double, std::milli>(endd - startt).count() / 1000 << " sec" << std::endl;
 			computerFirst = false;
-
 		}
 		else
 		{
