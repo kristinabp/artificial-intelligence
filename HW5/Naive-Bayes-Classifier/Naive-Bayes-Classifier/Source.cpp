@@ -122,27 +122,10 @@ std::vector<TableOfLikelihoods> calculateProbabilities(std::vector<std::vector<c
 
 char findClass(std::vector<char> testData, std::vector<TableOfLikelihoods> trainDataProb)
 {
-	double probabilityRep;
-	double probabilityDem;
+	double probabilityRep = 0;
+	double probabilityDem = 0;
 
-	if (testData[1] == 'y')
-	{
-		probabilityRep = log(trainDataProb[0].probabilityOfRepublicans[1]);
-		probabilityDem = log(trainDataProb[0].probabilityOfDemocrats[1]);
-	}
-	else if (testData[1] == 'n')
-	{
-		probabilityRep = log(trainDataProb[0].probabilityOfRepublicans[0]);
-		probabilityDem = log(trainDataProb[0].probabilityOfDemocrats[0]);
-	}
-	else
-	{
-		probabilityRep = log(trainDataProb[0].probabilityOfRepublicans[2]);
-		probabilityDem = log(trainDataProb[0].probabilityOfDemocrats[0]);
-	}
-
-
-	for (int i = 2; i < testData.size(); i++)
+	for (int i = 1; i < testData.size(); i++)
 	{
 		if (testData[i] == 'y')
 		{
@@ -260,7 +243,7 @@ void kFoldCrossValidation(int k)
 				countRightGuesses++;
 		}
 		allAcc += countRightGuesses * 1.0 / testingData.size() * 1.0 * 100;
-		std::cout << "Accuracy of " << i << " training is " << countRightGuesses * 1.0 / testingData.size() * 1.0 * 100 << "\n";
+		std::cout << "Accuracy of " << i+1 << " training is " << countRightGuesses * 1.0 / testingData.size() * 1.0 * 100 << "\n";
 	}
 	std::cout << "Accuracy of all trainings is " << allAcc/k << "\n";
 }
