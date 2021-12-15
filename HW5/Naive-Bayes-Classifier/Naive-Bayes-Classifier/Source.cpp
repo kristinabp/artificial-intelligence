@@ -153,7 +153,7 @@ char findClass(std::vector<char> testData, std::vector<TableOfLikelihoods> train
 void handleMissingValues()
 {
 	//Imputation method for categorical columns 
-	for (int col = 1; col < 16; col++)
+	for (int col = 1; col < 17; col++)
 	{
 		int countYes = 0;
 		int countNo = 0;
@@ -171,7 +171,7 @@ void handleMissingValues()
 
 		for (int i = 0; i < missingValueIndixes.size(); i++)
 		{
-			data[i][col] = countYes > countNo ? 'y' : 'n';
+			data[missingValueIndixes[i]][col] = countYes > countNo ? 'y' : 'n';
 		}
 	}
 }
@@ -263,6 +263,7 @@ void printData()
 int main()
 {
 	readData("house-votes-84.data");
+	handleMissingValues();
 	kFoldCrossValidation(10);
 
 	return system("pause");
