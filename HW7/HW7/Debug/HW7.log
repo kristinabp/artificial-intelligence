@@ -1,0 +1,18 @@
+﻿  Source.cpp
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW7\HW7\Source.cpp(35,17): warning C4018: '<=': signed/unsigned mismatch
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW7\HW7\Source.cpp(56,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW7\HW7\Source.cpp(64,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW7\HW7\Source.cpp(80,18): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW7\HW7\Source.cpp(99,18): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW7\HW7\Source.cpp(102,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW7\HW7\Source.cpp(105,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW7\HW7\Source.cpp(122,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW7\HW7\Source.cpp(143,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW7\HW7\Source.cpp(145,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW7\HW7\Source.cpp(159,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW7\HW7\Source.cpp(164,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW7\HW7\Source.cpp(180,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW7\HW7\Source.cpp(182,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW7\HW7\Source.cpp(215,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW7\HW7\Source.cpp(221,20): warning C4018: '<': signed/unsigned mismatch
+  HW7.vcxproj -> C:\Users\Krisi\OneDrive - uni-sofia.bg\Desktop\4 курс\artificial-intelligence\HW7\Debug\HW7.exe

@@ -263,7 +263,7 @@ void printData()
 int main()
 {
 	readData("house-votes-84.data");
-	handleMissingValues();
+	//handleMissingValues();
 	kFoldCrossValidation(10);
 
 	return system("pause");
